@@ -31,3 +31,8 @@ home
 
 
 login
+
+-url : path
+-view :logic
+-models :db
+-templates :frontend
