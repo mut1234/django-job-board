@@ -1,6 +1,6 @@
 from django.core.files import uploadhandler
 from django.db import models
-
+from django.utils.text import slugify
 '''
 django model filed:
 -html widget
@@ -29,6 +29,14 @@ class Job(models.Model): #table
     experience = models.IntegerField(default=1)
     category = models.ForeignKey('Category',on_delete=models.CASCADE) # 1 to many
     image = models.ImageField(upload_to=image_uplaod)
+    slug =models.SlugField(blank=True,null=True)
+
+
+    def save(self,*args, **kwargs):
+        self.slug = slugify(self.title)
+        super(Job,self).save(*args, **kwargs)
+
+
     def __str__(self): 
         return self.title # to return title instead than object
 
