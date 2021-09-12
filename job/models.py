@@ -1,3 +1,4 @@
+from django.core.files import uploadhandler
 from django.db import models
 
 '''
@@ -10,10 +11,14 @@ django model filed:
 # Create your models here.
 
 JOB_TYPE=(
-    ('Full Iime','Full Iime'),
-    ('Part Iime','Part Iime'),
+    ('Full Time','Full Time'),
+    ('Part Time','Part Time'),
 
 )
+def image_uplaod(instance,filename):
+    imagename,extenstion = filename.split(".")
+    return "jobs/%s.%s"%(instance.id,extenstion)
+
 class Job(models.Model): #table
     title = models.CharField(max_length=100) #column
     job_type = models.CharField(max_length=15 ,choices=JOB_TYPE)
@@ -23,6 +28,7 @@ class Job(models.Model): #table
     salary = models.IntegerField(default=0)
     experience = models.IntegerField(default=1)
     category = models.ForeignKey('Category',on_delete=models.CASCADE) # 1 to many
+    image = models.ImageField(upload_to=image_uplaod)
     def __str__(self): 
         return self.title # to return title instead than object
 

@@ -36,3 +36,6 @@ login
 -view :logic
 -models :db
 -templates :frontend
+
+static files : [frontend] img ,css ,js
+media files : [upload] img
