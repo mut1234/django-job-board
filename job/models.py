@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.core.files import uploadhandler
 from django.db import models
 from django.utils.text import slugify
@@ -20,6 +21,7 @@ def image_uplaod(instance,filename):
     return "jobs/%s.%s"%(instance.id,extenstion)
 
 class Job(models.Model): #table
+    owner = models.ForeignKey(User,related_name='job_owner', on_delete=models.CASCADE)
     title = models.CharField(max_length=100) #column
     job_type = models.CharField(max_length=15 ,choices=JOB_TYPE)
     description = models.TextField(max_length=1000)
